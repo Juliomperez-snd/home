@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Homi — Server Dashboard Prototype</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0;font-family:'Inter',sans-serif}
+body{background:#f0f0f0;min-height:100vh;display:flex;align-items:center;justify-content:center;padding:40px 20px}
+.scene{display:flex;flex-direction:column;align-items:center;gap:16px}
+.label{font-size:12px;color:#999;letter-spacing:0.05em}
+.phone-shell{width:393px;background:#111;border-radius:54px;padding:12px;box-shadow:0 40px 80px rgba(0,0,0,0.35),0 0 0 1px rgba(255,255,255,0.08),inset 0 0 0 2px #2a2a2a}
+.phone-screen{background:#fff;border-radius:44px;overflow:hidden;height:852px;display:flex;flex-direction:column;position:relative}
+.notch{width:126px;height:34px;background:#111;border-radius:0 0 20px 20px;position:absolute;top:0;left:50%;transform:translateX(-50%);z-index:200}
+.ps::-webkit-scrollbar{display:none}.ps{-ms-overflow-style:none;scrollbar-width:none}
+.tb{font-size:13px;color:#bbb;background:transparent;border:0;outline:0;cursor:pointer;white-space:nowrap;font-family:'Inter',sans-serif;box-shadow:none;-webkit-appearance:none;appearance:none;padding:10px 13px;display:inline-block}
+.tb.active{color:#111;font-weight:600}
+.screen{display:none;flex-direction:column;height:100%}
+.screen.active{display:flex}
+.nav-btn{display:flex;flex-direction:column;align-items:center;gap:3px;flex:1;background:none;border:none;cursor:pointer;padding:8px 4px;font-family:'Inter',sans-serif}
+.nav-btn span{font-size:10px;color:#aaa}
+.nav-btn.sel span{color:#111;font-weight:600}
+.faq-item{padding:14px 16px;background:#f5f5f5;border-radius:12px;display:flex;justify-content:space-between;align-items:center;cursor:pointer;margin-bottom:8px}
+</style>
+</head>
+<body>
+<div class="scene">
+  <div class="label">Homi · Server Dashboard · Prototype</div>
+  <div class="phone-shell">
+    <div class="phone-screen">
+      <div class="notch"></div>
+
+      <!-- HOME -->
+      <div class="screen active" id="screen-home">
+        <div style="background:#fff;padding:52px 20px 12px;flex-shrink:0;margin-top:34px">
+          <div style="display:flex;justify-content:space-between;align-items:center">
+            <div style="display:flex;align-items:center;gap:5px;cursor:pointer">
+              <span style="font-size:15px;font-weight:700;color:#111">This week</span>
+              <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M3 5l4 4 4-4" stroke="#111" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </div>
+            <div style="display:flex;gap:8px;align-items:center">
+              <div style="width:34px;height:34px;border-radius:50%;background:#ec4899;display:flex;align-items:center;justify-content:center">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><rect x="3" y="3" width="7" height="7" rx="1.5" fill="#fff"/><rect x="14" y="3" width="7" height="7" rx="1.5" fill="#fff"/><rect x="3" y="14" width="7" height="7" rx="1.5" fill="#fff"/><rect x="14" y="14" width="7" height="7" rx="1.5" fill="#fff"/></svg>
+              </div>
+              <div style="width:34px;height:34px;border-radius:50%;background:#d4a574;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;color:#fff">N</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="ps" style="flex:1;overflow-y:auto;padding:0 20px 16px;display:flex;flex-direction:column;gap:10px">
+          <!-- TODAY black -->
+          <div style="background:#1a1a1a;border-radius:20px;padding:18px 20px 20px;cursor:pointer;flex-shrink:0" onclick="openDetail()">
+            <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:4px">
+              <div>
+                <div style="font-size:11px;color:#555;margin-bottom:2px">Today, April</div>
+                <div style="font-size:38px;font-weight:800;color:#fff;line-height:1">16</div>
+              </div>
+              <div style="display:flex;align-items:center;gap:5px;background:#2a2a2a;border-radius:20px;padding:5px 10px">
+                <div style="width:7px;height:7px;border-radius:50%;background:#ef4444;flex-shrink:0"></div>
+                <span style="font-size:11px;font-weight:600;color:#fff">LIVE</span>
+              </div>
+            </div>
+            <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-top:16px">
+              <div><div style="font-size:9px;color:#fff;margin-bottom:3px">Rewards</div><div style="font-size:15px;font-weight:700;color:#fff">$100</div></div>
+              <div><div style="font-size:9px;color:#fff;margin-bottom:3px">Tips</div><div style="font-size:15px;font-weight:700;color:#fff">$421</div></div>
+              <div><div style="font-size:9px;color:#fff;margin-bottom:3px">Satisfaction</div><div style="font-size:15px;font-weight:700;color:#fff">4.2★</div></div>
+              <div><div style="font-size:9px;color:#fff;margin-bottom:3px">Achievements</div><div style="font-size:15px;font-weight:700;color:#fff">3 🏆</div></div>
+            </div>
+          </div>
+
+          <!-- FRIDAY -->
+          <div style="background:#f5f5f5;border-radius:20px;padding:18px 20px 20px;cursor:pointer;flex-shrink:0" onclick="openDetail()">
+            <div style="margin-bottom:4px"><div style="font-size:11px;color:#aaa;margin-bottom:2px">Friday, April</div><div style="font-size:38px;font-weight:800;color:#111;line-height:1">11</div></div>
+            <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:16px">
+              <div><div style="font-size:9px;color:#111;margin-bottom:3px">Rewards</div><div style="font-size:15px;font-weight:700;color:#111">$100</div></div>
+              <div><div style="font-size:9px;color:#111;margin-bottom:3px">Tips</div><div style="font-size:15px;font-weight:700;color:#111">$2,216</div></div>
+              <div><div style="font-size:9px;color:#111;margin-bottom:3px">Satisfaction</div><div style="font-size:15px;font-weight:700;color:#111">4.85★</div></div>
+            </div>
+          </div>
+
+          <!-- THURSDAY -->
+          <div style="background:#f5f5f5;border-radius:20px;padding:18px 20px 20px;flex-shrink:0">
+            <div style="margin-bottom:4px"><div style="font-size:11px;color:#aaa;margin-bottom:2px">Thursday, April</div><div style="font-size:38px;font-weight:800;color:#111;line-height:1">10</div></div>
+            <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:16px">
+              <div><div style="font-size:9px;color:#111;margin-bottom:3px">Rewards</div><div style="font-size:15px;font-weight:700;color:#111">$80</div></div>
+              <div><div style="font-size:9px;color:#111;margin-bottom:3px">Tips</div><div style="font-size:15px;font-weight:700;color:#111">$1,840</div></div>
+              <div><div style="font-size:9px;color:#111;margin-bottom:3px">Satisfaction</div><div style="font-size:15px;font-weight:700;color:#111">4.7★</div></div>
+            </div>
+          </div>
+
+          <!-- WEDNESDAY -->
+          <div style="background:#f5f5f5;border-radius:20px;padding:18px 20px 20px;flex-shrink:0">
+            <div style="margin-bottom:4px"><div style="font-size:11px;color:#aaa;margin-bottom:2px">Wednesday, April</div><div style="font-size:38px;font-weight:800;color:#111;line-height:1">9</div></div>
+            <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:16px">
+              <div><div style="font-size:9px;color:#111;margin-bottom:3px">Rewards</div><div style="font-size:15px;font-weight:700;color:#111">$60</div></div>
+              <div><div style="font-size:9px;color:#111;margin-bottom:3px">Tips</div><div style="font-size:15px;font-weight:700;color:#111">$1,540</div></div>
+              <div><div style="font-size:9px;color:#111;margin-bottom:3px">Satisfaction</div><div style="font-size:15px;font-weight:700;color:#111">4.6★</div></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Bottom nav -->
+        <div style="border-top:0.5px solid #f0f0f0;background:#fff;display:flex;padding:6px 0 20px;flex-shrink:0">
+          <button class="nav-btn sel" onclick="switchNav(this)">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M3 12L12 3l9 9" stroke="#111" stroke-width="2" stroke-linecap="round"/><path d="M5 10v9a1 1 0 001 1h4v-4h4v4h4a1 1 0 001-1v-9" stroke="#111" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            <span>Home</span>
+          </button>
+          <button class="nav-btn" onclick="switchNav(this)">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z" stroke="#bbb" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            <span>Performance</span>
+          </button>
+          <button class="nav-btn" onclick="switchNav(this)">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M12 2C8 8 6 11 6 14a6 6 0 0012 0c0-3-2-6-6-12z" stroke="#bbb" stroke-width="2" stroke-linecap="round"/><path d="M12 20v2M9 17l-2 2M15 17l2 2" stroke="#bbb" stroke-width="2" stroke-linecap="round"/></svg>
+            <span>Challenges</span>
+          </button>
+          <button class="nav-btn" onclick="switchNav(this)">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><rect x="2" y="8" width="20" height="13" rx="2" stroke="#bbb" stroke-width="2"/><path d="M6 8V6a6 6 0 0112 0v2" stroke="#bbb" stroke-width="2" stroke-linecap="round"/><path d="M12 13v3M10 14h4" stroke="#bbb" stroke-width="2" stroke-linecap="round"/></svg>
+            <span>Rewards</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- DETAIL -->
+      <div class="screen" id="screen-detail">
+        <div style="background:#fff;padding:46px 20px 0;display:flex;justify-content:space-between;align-items:center;flex-shrink:0">
+          <span style="font-size:13px;font-weight:500;color:#111">9:41</span>
+          <div style="display:flex;gap:5px;align-items:center">
+            <svg width="16" height="10" viewBox="0 0 16 10"><rect x="0" y="4" width="3" height="6" rx="1" fill="#111"/><rect x="4.5" y="2.5" width="3" height="7.5" rx="1" fill="#111"/><rect x="9" y="0" width="3" height="10" rx="1" fill="#111"/><rect x="13.5" y="1" width="2.5" height="8" rx="1" fill="#ddd"/></svg>
+            <svg width="15" height="12" viewBox="0 0 15 12"><path d="M7.5 2.5C10.5 2.5 13 4.5 13.8 7.2L15 6C13.8 2.8 10.9.5 7.5.5 4.1.5 1.2 2.8 0 6l1.2 1.2C2 4.5 4.5 2.5 7.5 2.5z" fill="#111"/><path d="M7.5 5.5C9.2 5.5 10.7 6.5 11.3 8l1.3-1.3C11.6 4.7 9.7 3.5 7.5 3.5c-2.2 0-4.1 1.2-5.1 3.2L3.7 8C4.3 6.5 5.8 5.5 7.5 5.5z" fill="#111"/><circle cx="7.5" cy="10" r="1.5" fill="#111"/></svg>
+            <div style="width:22px;height:11px;border:1.5px solid #111;border-radius:3px;display:flex;align-items:center;padding:1.5px"><div style="width:14px;height:7px;background:#111;border-radius:1.5px"></div></div>
+          </div>
+        </div>
+        <div style="background:#fff;padding:10px 20px;display:flex;justify-content:space-between;align-items:center;flex-shrink:0">
+          <svg width="22" height="22" viewBox="0 0 22 22" fill="none" style="cursor:pointer" onclick="goBack()"><path d="M14 4L7 11l7 7" stroke="#111" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          <div style="display:flex;gap:8px">
+            <div style="width:32px;height:32px;border-radius:50%;background:#f0e6ff;display:flex;align-items:center;justify-content:center;font-size:13px">📋</div>
+            <div style="width:32px;height:32px;border-radius:50%;background:#7c3aed;display:flex;align-items:center;justify-content:center;font-size:12px;color:#fff;font-weight:600">N</div>
+          </div>
+        </div>
+
+        <div class="ps" id="sa" style="flex:1;overflow-y:auto">
+          <div style="padding:4px 20px 0" id="th">
+            <div style="font-size:11px;color:#999;margin-bottom:3px">Today, 16th April</div>
+            <div style="font-size:22px;font-weight:700;color:#111;line-height:1.25;margin-bottom:20px">Your best tipping Friday<br>of the month! 🎉</div>
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:20px">
+              <div><div style="font-size:11px;color:#888;margin-bottom:3px">Guest served</div><div style="font-size:20px;font-weight:700;color:#111">116</div></div>
+              <div><div style="font-size:11px;color:#888;margin-bottom:3px">Sunday usage</div><div style="font-size:20px;font-weight:700;color:#111">55%</div></div>
+              <div><div style="font-size:11px;color:#888;margin-bottom:3px">Total Tips</div><div style="font-size:20px;font-weight:700;color:#111">$2,216</div></div>
+              <div><div style="font-size:11px;color:#888;margin-bottom:3px">Avg. Tip</div><div style="font-size:20px;font-weight:700;color:#111">24.4%</div></div>
+              <div><div style="font-size:11px;color:#888;margin-bottom:3px">Guest satisfaction</div><div style="font-size:20px;font-weight:700;color:#111">4.2★</div></div>
+              <div><div style="font-size:11px;color:#888;margin-bottom:3px">5★ Reviews</div><div style="font-size:20px;font-weight:700;color:#111">15</div></div>
+            </div>
+            <div style="background:#fdf2f8;border:1px solid #f9a8d4;border-radius:12px;padding:12px 14px;display:flex;align-items:center;justify-content:space-between;margin-bottom:28px">
+              <div style="display:flex;align-items:center;gap:10px">
+                <div style="width:40px;height:40px;border-radius:8px;background:#fce7f3;display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0">☀️</div>
+                <div>
+                  <div style="font-size:12px;font-weight:600;color:#111">Earn $5.00 per sunday payment</div>
+                  <div style="font-size:10px;color:#aaa;margin-top:2px">20/116 Guests paid with sunday</div>
+                </div>
+              </div>
+              <div style="font-size:13px;font-weight:700;color:#ec4899;flex-shrink:0;margin-left:10px">+$100.00</div>
+            </div>
+          </div>
+
+          <div id="sn" style="background:#fff;padding:0 6px;position:relative;z-index:10">
+            <div style="display:flex">
+              <span class="tb active" onclick="go('revenue')" style="cursor:pointer">Revenue</span>
+              <span class="tb" onclick="go('tips')" style="cursor:pointer">Tips</span>
+              <span class="tb" onclick="go('reviews')" style="cursor:pointer">Reviews</span>
+              <span class="tb" onclick="go('sunday')" style="cursor:pointer">Sunday usage</span>
+            </div>
+            <div style="height:1px;background:#e5e7eb"></div>
+          </div>
+
+          <!-- REVENUE -->
+          <div id="sec-revenue" style="padding:32px 20px 0">
+            <div style="font-size:15px;font-weight:700;color:#111;margin-bottom:16px">Revenue</div>
+            <div style="margin-bottom:16px">
+              <div style="font-size:9px;color:#888;margin-bottom:6px">TOTAL REVENUE</div>
+              <div style="font-size:36px;font-weight:800;color:#111">$2,216</div>
+            </div>
+            <div style="display:grid;grid-template-columns:1fr 1fr;margin-bottom:20px">
+              <div><div style="font-size:9px;color:#888;margin-bottom:4px">HIGHEST BILL</div><div style="font-size:18px;font-weight:700;color:#111">$245.12 🥇</div></div>
+              <div><div style="font-size:9px;color:#888;margin-bottom:4px">AVG. BASKET SIZE</div><div style="font-size:18px;font-weight:700;color:#111">$45.00</div></div>
+            </div>
+            <div style="background:#eff6ff;border-radius:10px;padding:12px 14px;display:flex;gap:8px;align-items:flex-start">
+              <span style="color:#3b82f6;font-size:14px;margin-top:1px">ℹ</span>
+              <div style="font-size:11px;color:#1e40af">When guests use sunday, they generate 25% more upsell on average</div>
+            </div>
+          </div>
+
+          <!-- TIPS -->
+          <div id="sec-tips" style="padding:48px 20px 0">
+            <div style="font-size:15px;font-weight:700;color:#111;margin-bottom:16px">Tips</div>
+            <div style="display:grid;grid-template-columns:1fr 1fr;margin-bottom:16px">
+              <div><div style="font-size:36px;font-weight:800;color:#ec4899">22.5%</div><div style="font-size:11px;color:#ec4899;margin-top:2px">Avg. tip with Sunday</div></div>
+              <div><div style="font-size:36px;font-weight:800;color:#111">18.5%</div><div style="font-size:11px;color:#888;margin-top:2px">Avg. tip with Toast</div></div>
+            </div>
+            <svg id="tipsChart" viewBox="0 0 345 160" width="345" height="160" style="display:block;margin-bottom:0"></svg>
+            <div style="background:#eff6ff;border-radius:10px;padding:12px 14px;margin-bottom:20px;display:flex;gap:8px;align-items:flex-start">
+              <span style="color:#3b82f6;font-size:14px;margin-top:1px">ℹ</span>
+              <div style="font-size:11px;color:#1e40af">If all your guests would have paid with sunday, you would have an extra in tips of $750.00</div>
+            </div>
+            <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-bottom:20px">
+              <div><div style="font-size:9px;color:#888;margin-bottom:4px">TOTAL TIPS</div><div style="font-size:16px;font-weight:700;color:#111">$2,216</div></div>
+              <div><div style="font-size:9px;color:#888;margin-bottom:4px">HIGHEST TIP</div><div style="font-size:16px;font-weight:700;color:#111">$42.44</div></div>
+              <div><div style="font-size:9px;color:#888;margin-bottom:4px"># SUPER TIPS</div><div style="font-size:16px;font-weight:700;color:#111">5</div></div>
+            </div>
+            <div>
+              <div style="padding:12px 0;border-bottom:0.5px solid #f3f4f6;display:flex;justify-content:space-between">
+                <div><div style="font-size:13px;font-weight:600;color:#111">Table 12</div><div style="font-size:11px;color:#bbb;margin-top:2px">Mon,12 · 12:21</div></div>
+                <div style="text-align:right"><div style="font-size:13px;font-weight:600;color:#16a34a">+$75.22</div><div style="font-size:11px;color:#bbb;margin-top:2px">21.5%</div></div>
+              </div>
+              <div style="padding:12px 0;border-bottom:0.5px solid #f3f4f6;display:flex;justify-content:space-between">
+                <div><div style="font-size:13px;font-weight:600;color:#111">Table 2</div><div style="font-size:11px;color:#bbb;margin-top:2px">Mon,12 · 12:10</div></div>
+                <div style="text-align:right"><div style="font-size:13px;font-weight:600;color:#16a34a">+$5.22</div><div style="font-size:11px;color:#bbb;margin-top:2px">22.5%</div></div>
+              </div>
+              <div style="padding:12px 0;display:flex;justify-content:space-between">
+                <div><div style="font-size:13px;font-weight:600;color:#111">Table 15</div><div style="font-size:11px;color:#bbb;margin-top:2px">Mon,12 · 12:05</div></div>
+                <div style="text-align:right"><div style="font-size:13px;font-weight:600;color:#16a34a">+$21.22</div><div style="font-size:11px;color:#bbb;margin-top:2px">20%</div></div>
+              </div>
+            </div>
+            <button style="width:100%;padding:12px;background:#f5f5f5;border:none;border-radius:10px;font-size:13px;font-weight:600;color:#888;cursor:pointer;margin-top:14px">See all tips</button>
+          </div>
+
+          <!-- REVIEWS -->
+          <div id="sec-reviews" style="padding:48px 20px 0">
+            <div style="font-size:15px;font-weight:700;color:#111;margin-bottom:16px">Reviews</div>
+            <div style="display:flex;gap:16px;margin-bottom:22px;align-items:center">
+              <div><div style="font-size:36px;font-weight:800;color:#111">4.85</div><div style="font-size:11px;color:#888">15 Reviews</div></div>
+              <div style="flex:1" id="sbars"></div>
+            </div>
+            <div>
+              <div style="padding:14px 0;border-bottom:0.5px solid #f3f4f6">
+                <div style="display:flex;justify-content:space-between;margin-bottom:5px"><span style="font-size:11px;color:#aaa">Mon, 12 Apr · Table 5</span><span style="color:#111;font-size:12px">★★★★★</span></div>
+                <div style="font-size:13px;color:#333;line-height:1.5">Amazing service! Food was incredible and the server was super attentive all night.</div>
+              </div>
+              <div style="padding:14px 0;border-bottom:0.5px solid #f3f4f6">
+                <div style="display:flex;justify-content:space-between;margin-bottom:5px"><span style="font-size:11px;color:#aaa">Mon, 12 Apr · Table 12</span><span style="color:#111;font-size:12px">★★★★★</span></div>
+                <div style="font-size:13px;color:#333;line-height:1.5">Pizza Capitano was out of this world. Will definitely be back next Friday!</div>
+              </div>
+              <div style="padding:14px 0;border-bottom:0.5px solid #f3f4f6">
+                <div style="display:flex;justify-content:space-between;margin-bottom:5px"><span style="font-size:11px;color:#aaa">Mon, 12 Apr · Table 2</span><span style="color:#111;font-size:12px">★★★★★</span></div>
+                <div style="font-size:13px;color:#333;line-height:1.5">Best dining experience in a while. Tip process with sunday was seamless.</div>
+              </div>
+            </div>
+            <div style="background:#eff6ff;border-radius:10px;padding:12px 14px;margin-top:16px;display:flex;gap:8px;align-items:flex-start">
+              <span style="color:#3b82f6;font-size:14px;margin-top:1px;flex-shrink:0">ℹ</span>
+              <div style="font-size:11px;color:#1e40af;line-height:1.5">95% of the times someone pays with sunday, they leave a <strong>5★ Google Review</strong></div>
+            </div>
+            <button style="width:100%;padding:12px;background:#f5f5f5;border:none;border-radius:10px;font-size:13px;font-weight:600;color:#888;cursor:pointer;margin-top:14px">See all reviews</button>
+          </div>
+
+          <!-- SUNDAY USAGE -->
+          <div id="sec-sunday" style="padding:48px 20px 0">
+            <div style="font-size:15px;font-weight:700;color:#111;margin-bottom:16px">Sunday usage</div>
+            <div style="margin-bottom:28px">
+              <div style="font-size:9px;color:#888;margin-bottom:6px">ADOPTION RATE</div>
+              <div style="font-size:36px;font-weight:800;color:#111;margin-bottom:6px">55%</div>
+              <div style="font-size:11px;color:#888;margin-bottom:10px">475 out of 1,000 guests paid with Sunday</div>
+              <div style="background:#f3f4f6;border-radius:8px;height:8px;overflow:hidden">
+                <div style="width:55%;height:100%;background:#ec4899;border-radius:8px"></div>
+              </div>
+            </div>
+            <div style="display:flex;align-items:flex-end;gap:12px;height:150px;margin-bottom:12px">
+              <div style="flex:1;display:flex;flex-direction:column;align-items:center;height:100%">
+                <div style="font-size:12px;color:#888;font-weight:600;margin-bottom:6px">116</div>
+                <div style="width:100%;flex:1;background:#d1d5db;border-radius:6px 6px 0 0"></div>
+              </div>
+              <div style="flex:1;display:flex;flex-direction:column;align-items:center;height:100%">
+                <div style="font-size:12px;color:#888;font-weight:600;margin-bottom:6px">55%</div>
+                <div style="width:100%;height:50%;background:#d1d5db;border-radius:6px 6px 0 0;margin-top:auto"></div>
+              </div>
+              <div style="flex:1;display:flex;flex-direction:column;align-items:center;height:100%">
+                <div style="font-size:12px;color:#ec4899;font-weight:700;margin-bottom:6px">95%</div>
+                <div style="width:100%;height:47.5%;background:#ec4899;border-radius:6px 6px 0 0;margin-top:auto"></div>
+              </div>
+            </div>
+            <div style="display:flex;gap:12px;margin-bottom:28px">
+              <div style="flex:1;text-align:center;font-size:10px;color:#888;line-height:1.4">Guests you<br>served</div>
+              <div style="flex:1;text-align:center;font-size:10px;color:#888;line-height:1.4">Saw their bill<br>with their phone</div>
+              <div style="flex:1;text-align:center;font-size:10px;color:#ec4899;font-weight:600;line-height:1.4">Paid with<br>Sunday</div>
+            </div>
+            <div style="background:#eff6ff;border-radius:10px;padding:12px 14px;margin-bottom:32px;display:flex;gap:10px;align-items:flex-start">
+              <span style="color:#3b82f6;font-size:15px;flex-shrink:0;margin-top:1px">ℹ</span>
+              <div style="font-size:12px;color:#1e40af;line-height:1.5">That means that once your guests saw their bill with their phone, <strong>95% of them chose to pay with sunday</strong></div>
+            </div>
+
+            <!-- LEARN MORE -->
+            <div style="margin-bottom:8px">
+              <div style="font-size:15px;font-weight:700;color:#111;margin-bottom:14px">Learn more</div>
+              <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:16px">
+                <div style="border-radius:14px;overflow:hidden;background:#1a0a0a;position:relative;height:140px;cursor:pointer">
+                  <div style="position:absolute;inset:0;background:linear-gradient(160deg,#c0392b,#7b0000);opacity:0.85"></div>
+                  <div style="position:absolute;bottom:0;left:0;right:0;padding:10px 12px">
+                    <div style="font-size:9px;color:rgba(255,255,255,0.6);margin-bottom:3px">Get more tips</div>
+                    <div style="font-size:12px;font-weight:700;color:#fff;line-height:1.3">How to introduce sunday to guests</div>
+                  </div>
+                </div>
+                <div style="border-radius:14px;overflow:hidden;background:#0a1a2a;position:relative;height:140px;cursor:pointer">
+                  <div style="position:absolute;inset:0;background:linear-gradient(160deg,#1565c0,#0d3b7a);opacity:0.85"></div>
+                  <div style="position:absolute;bottom:0;left:0;right:0;padding:10px 12px">
+                    <div style="font-size:9px;color:rgba(255,255,255,0.6);margin-bottom:3px">Please your guests</div>
+                    <div style="font-size:12px;font-weight:700;color:#fff;line-height:1.3">Why sunday makes good hospitality</div>
+                  </div>
+                </div>
+              </div>
+              <div class="faq-item"><span style="font-size:13px;color:#111;line-height:1.4;flex:1;padding-right:12px">How do I know if a guest has paid?</span><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M4 6l4 4 4-4" stroke="#aaa" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+              <div class="faq-item"><span style="font-size:13px;color:#111;line-height:1.4;flex:1;padding-right:12px">A guest leaves the restaurant without paying. What do I do?</span><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M4 6l4 4 4-4" stroke="#aaa" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+              <div class="faq-item"><span style="font-size:13px;color:#111;line-height:1.4;flex:1;padding-right:12px">What if the guest complains about the digital fee?</span><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M4 6l4 4 4-4" stroke="#aaa" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+              <div class="faq-item"><span style="font-size:13px;color:#111;line-height:1.4;flex:1;padding-right:12px">Can one guest pay with sunday and another with cash or card?</span><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M4 6l4 4 4-4" stroke="#aaa" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+            </div>
+            <div style="height:40px"></div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+  <div class="label">Tap a card to open · Tap ← to go back · Scroll inside the phone</div>
+</div>
+
+<script>
+document.getElementById('sbars').innerHTML=[[5,5],[4,3],[3,6],[2,0],[1,1]].map(([s,c])=>`
+  <div style="display:flex;align-items:center;gap:6px;margin-bottom:4px">
+    <span style="font-size:11px;color:#aaa;width:16px;text-align:right">${s}★</span>
+    <div style="flex:1;background:#f0f0f0;border-radius:4px;height:7px;overflow:hidden">
+      <div style="width:${(c/15)*100}%;background:#333;height:100%;border-radius:4px"></div>
+    </div>
+    <span style="font-size:11px;color:#aaa;width:14px">${c}</span>
+  </div>`).join('');
+
+const hours=['12pm','1pm','2pm','3pm','4pm','5pm','6pm','7pm','8pm','9pm'];
+const sunday=[18,22,25,20,27,30,24,28,22,19];
+const toast=[14,16,18,15,19,22,17,20,16,14];
+const svg=document.getElementById('tipsChart');
+const W=345,H=130,padL=28,padR=8,padT=8,padB=28;
+const chartW=W-padL-padR,chartH=H-padT-padB;
+const maxVal=32,n=hours.length,groupW=chartW/n,barW=groupW*0.32;
+let html='';
+for(let i=0;i<5;i++){
+  const v=Math.round(maxVal*(4-i)/4);
+  const y=padT+chartH*(i/4);
+  html+=`<line x1="${padL}" y1="${y}" x2="${W-padR}" y2="${y}" stroke="#f0f0f0" stroke-width="1"/>`;
+  html+=`<text x="${padL-4}" y="${y+3}" font-size="8" fill="#ccc" text-anchor="end">${v}%</text>`;
+}
+hours.forEach((h,i)=>{
+  const x=padL+i*groupW+groupW/2;
+  const sH=chartH*(sunday[i]/maxVal);
+  const tH=chartH*(toast[i]/maxVal);
+  const gap=2;
+  html+=`<rect x="${x-barW-gap/2}" y="${padT+chartH-sH}" width="${barW}" height="${sH}" rx="2" fill="#ec4899"/>`;
+  html+=`<rect x="${x+gap/2}" y="${padT+chartH-tH}" width="${barW}" height="${tH}" rx="2" fill="#e5e7eb"/>`;
+  html+=`<text x="${x}" y="${H-4}" font-size="8" fill="#bbb" text-anchor="middle">${h}</text>`;
+});
+svg.innerHTML=html;
+
+const sa=document.getElementById('sa'),sn=document.getElementById('sn'),th=document.getElementById('th');
+sa.addEventListener('scroll',()=>{
+  sn.style.position=sa.scrollTop>=th.offsetHeight?'sticky':'relative';
+  sn.style.top='0';
+  const ids=['sec-revenue','sec-tips','sec-reviews','sec-sunday'];
+  let cur=0;
+  ids.forEach((id,i)=>{const el=document.getElementById(id);if(el&&el.offsetTop-sa.scrollTop<=60)cur=i;});
+  document.querySelectorAll('.tb').forEach((b,i)=>b.classList.toggle('active',i===cur));
+});
+function go(s){
+  const m={revenue:'sec-revenue',tips:'sec-tips',reviews:'sec-reviews',sunday:'sec-sunday'};
+  const el=document.getElementById(m[s]);
+  if(el)sa.scrollTo({top:el.offsetTop-10,behavior:'smooth'});
+}
+function openDetail(){
+  document.getElementById('screen-home').classList.remove('active');
+  document.getElementById('screen-detail').classList.add('active');
+}
+function goBack(){
+  document.getElementById('screen-detail').classList.remove('active');
+  document.getElementById('screen-home').classList.add('active');
+}
+function switchNav(btn){
+  document.querySelectorAll('.nav-btn').forEach(b=>b.classList.remove('sel'));
+  btn.classList.add('sel');
+}
+</script>
+</body>
+</html>
